@@ -1,23 +1,24 @@
 <script setup>
 import { useRoute } from "vue-router";
-
 import { ref, onMounted } from "vue";
 
-const thisBook = ref(null);
+const thisBook = ref({});
+const isLoading = ref(true);
 const route = useRoute();
-const bookDetail = `http://localhost:3000/books/${route.params._id}`;
+const bookDetail = `http://localhost:3000/books/${route.params.id}`;
 
 onMounted(async () => {
   const response = await fetch(bookDetail);
   const data = await response.json();
   thisBook.value = data;
-  isLoading.value = false;
+  isLoading.value=false
   console.log(thisBook);
 });
 </script>
 
 <template>
-  <section class="py-24 relative">
+<h2 v-if="isLoading">Loading...</h2>
+<section v-else class="py-24 relative">
     <div class="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
       <div
         class="w-full justify-start items-center gap-8 grid lg:grid-cols-2 grid-cols-1"
@@ -31,29 +32,27 @@ onMounted(async () => {
             <h2
               class="text-gray-900 text-4xl font-bold font-manrope leading-normal lg:text-start text-center"
             >
-              Building Stronger Communities through Collaboration and
-              Empowerment
+              {{ thisBook.title }}
             </h2>
             <p
               class="text-gray-500 text-base font-normal leading-relaxed lg:text-start text-center"
             >
-              Through collaborationperse perspectives and strengths are
-              leveraged to create inclusive environments where everyone has the
-              opportunity to thrive. This approach not only fosters personal
-              growth and achievement but also strengthens the fabric of society.
+              {{ thisBook.publicationYear }}
+            </p>
+            <h4 class="mb-2 text-slate-800 text-l font-semibold">
+              {{ thisBook.author.firstName }}
+              {{ thisBook.author.lastName.toUpperCase() }}
+            </h4>
+            <p
+              class="text-gray-900 text-base font-normal leading-relaxed lg:text-start text-center"
+            >
+              {{ thisBook.recap }}
             </p>
           </div>
-          <button
-            class="sm:w-fit w-full px-3.5 py-2 bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 ease-in-out rounded-lg shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] justify-center items-center flex"
-          >
-            <span class="px-1.5 text-white text-sm font-medium leading-6"
-              >Get Started</span
-            >
-          </button>
         </div>
         <img
           class="lg:mx-0 mx-auto h-full rounded-3xl object-cover"
-          src="https://pagedone.io/asset/uploads/1717751272.png"
+          :src="thisBook.coverUri"
           alt="about Us image"
         />
       </div>

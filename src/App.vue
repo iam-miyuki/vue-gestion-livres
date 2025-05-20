@@ -1,13 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import ClientBooksList from '@/views/ClientBooksList.vue'
-import ClientBookDetail from '@/views/ClientBookDetail.vue'
+import TheHeader from '@/components/TheHeader.vue';
+
 
 </script>
 
 <template>
-
-<ClientBooksList />
+<TheHeader />
 <RouterView />
 </template>
 

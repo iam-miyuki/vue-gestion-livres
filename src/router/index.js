@@ -5,9 +5,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/books',
+      path: '/',
       name: 'home',
-      component: ClientBooksList.vue,
+      component: ClientBooksList,
     },
     {
       path: '/books/:id',
@@ -28,14 +28,9 @@ const router = createRouter({
       component: () => import('@/views/AdminBookCreate.vue'),
     },
     {
-      path: '/admin/books/update',
+      path: '/admin/books/update/:id',
       name: 'update',
       component: () => import('@/views/AdminBookUpdate.vue'),
-    },
-    {
-      path: '/admin/books/delete',
-      name: 'delete',
-      component: () => import('@/views/AdminBookDelete.vue'),
     },
   ],
 })
