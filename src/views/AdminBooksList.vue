@@ -43,23 +43,23 @@ onMounted(async () => {
 
   <!-- Tableau de livres -->
   <div class="overflow-x-auto px-4">
-    <div
-      class="relative w-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg"
-    >
-      <table class="w-full text-left table-auto min-w-max">
+    <div class="relative w-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg">
+      
+      <!-- Message de chargement -->
+      <h2 v-if="isLoading" class="p-4 text-slate-600">Chargement...</h2>
+      
+      <!-- Table de livres -->
+      <table v-else class="w-full text-left table-auto min-w-max">
         <thead>
           <tr class="border-b border-slate-300 bg-slate-50">
             <th class="p-4 text-sm font-semibold text-slate-600">Cover</th>
             <th class="p-4 text-sm font-semibold text-slate-600">Titre</th>
             <th class="p-4 text-sm font-semibold text-slate-600">Année</th>
             <th class="p-4 text-sm font-semibold text-slate-600">Auteur</th>
-            <th class="p-4 text-sm font-semibold text-slate-600 text-right">
-              Actions
-            </th>
+            <th class="p-4 text-sm font-semibold text-slate-600 text-right">Actions</th>
           </tr>
         </thead>
-        <h2 v-if="isLoading">Chargement...</h2>
-        <tbody v-else>
+        <tbody>
           <tr
             v-for="book in allBooks"
             :key="book._id"
@@ -80,17 +80,13 @@ onMounted(async () => {
             </td>
             <td class="p-4">
               <p class="text-slate-600">
-                {{ book.author.lastName.toUpperCase() }}
-                {{ book.author.firstName }}
+                {{ book.author?.lastName?.toUpperCase() }} {{ book.author?.firstName }}
               </p>
             </td>
             <td class="p-4 flex justify-end gap-2">
-              <!-- Bouton modifier  -->
+              <!-- Bouton modifier -->
               <RouterLink :to="`/admin/books/update/${book._id}`">
-                <button
-                  class="text-gray-600 hover:text-gray-800"
-                  title="Modifier"
-                >
+                <button class="text-gray-600 hover:text-gray-800" title="Modifier">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
