@@ -13,7 +13,28 @@ onMounted(async () => {
   isLoading.value = false;
   console.log(allBooks);
 });
+
+
+const deleteBook = async (id) => {
+  const deleteBookUrl = `http://localhost:3000/books/${id}`;
+
+  try {
+    const response = await fetch(deleteBookUrl, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Échec de la suppression');
+    }
+
+    alert('Le livre a été supprimé avec succès.');
+  } catch (error) {
+    console.error('Erreur lors de la suppression :', error);
+    alert('Une erreur est survenue lors de la suppression du livre.');
+  }
+};
 </script>
+
 <template>
   <!-- Header admin -->
   <div class="w-full flex justify-between items-center mb-4 mt-2 px-4">
@@ -80,7 +101,7 @@ onMounted(async () => {
             </td>
             <td class="p-4">
               <p class="text-slate-600">
-                {{ book.author?.lastName?.toUpperCase() }} {{ book.author?.firstName }}
+                {{ book.author.lastName.toUpperCase() }} {{ book.author.firstName }}
               </p>
             </td>
             <td class="p-4 flex justify-end gap-2">
@@ -103,6 +124,7 @@ onMounted(async () => {
               <button
                 class="text-gray-600 hover:text-gray-800"
                 title="Supprimer"
+                @click="deleteBook(book._id)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

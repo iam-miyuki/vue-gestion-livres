@@ -39,15 +39,15 @@ const updateBook = async () => {
     });
 
     if (!response.ok) {
-      throw new Error('Échec de la mise à jour');
+      throw new Error('Erreur mis à jour');
     }
 
     const updatedBook = await response.json();
-    console.log('Livre mis à jour avec succès :', updatedBook);
-    alert('Le livre a été modifié avec succès.');
+    console.log('Modification ok:', updatedBook);
+    alert('Modification enregistré !');
   } catch (error) {
-    console.error('Erreur lors de la mise à jour :', error);
-    alert('Une erreur est survenue lors de la modification du livre.');
+    console.error('Erreur mis à jour:', error);
+    alert('Erreur mis à jour');
   }
 };
 

@@ -15,7 +15,7 @@ const newBook = ref({
   },
 });
 
-const createBook = async () => {
+const addBook = async () => {
   const newBookUrl = `http://localhost:3000/books`;
 
   try {
@@ -28,16 +28,16 @@ const createBook = async () => {
     });
 
     if (!response.ok) {
-      throw new Error("Échec de la création");
+      throw new Error("Erreur : le livre n'a pas été ajouté");
     }
 
-    const createdBook = await response.json();
-    console.log("Livre a été créé avec succès :", createdBook);
-    alert("Le livre a été créé avec succès.");
-    router.push("/admin/books"); // ✅ redirection correcte
+    const addedBook = await response.json();
+    console.log("le livre a été ajouté :", addedBook);
+    alert("Le livre a été ajouté avec succès.");
+    router.push("/admin/books");
   } catch (error) {
-    console.error("Erreur lors de la création :", error);
-    alert("Une erreur est survenue lors de la création du livre.");
+    console.error("Erreur ajout de livre:", error);
+    alert("Erreur ajout de livre");
   }
 };
 </script>
@@ -49,7 +49,7 @@ const createBook = async () => {
       Ajouter un nouveau livre
     </h2>
     <form
-      @submit.prevent="createBook()"
+      @submit.prevent="addBook()"
       class="space-y-6 bg-white p-6 rounded-lg shadow-md"
     >
       <!-- Titre -->
